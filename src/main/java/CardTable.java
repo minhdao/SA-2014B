@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.Collections;
+
 /**
  * Created by minh on 7/15/14.
  * CardTable can hold 4 players
@@ -7,7 +10,7 @@
 public class CardTable {
 
     private Player[] players;
-    private int[] cardDeck;
+    private ArrayList<Integer> cardDeck = new ArrayList<Integer>();
 
     public CardTable(){
         players = new Player[4];
@@ -22,9 +25,18 @@ public class CardTable {
         }
     }
 
-    // TODO
     public void shuffer(){
-
+        for (int i = 1; i <= 52; i++){
+            cardDeck.add(i);
+        }
+        Collections.shuffle(cardDeck);
+        int count = 0;
+        for (int i = 0; i < 52; i++){
+            System.out.print(cardDeck.get(i)+"            ");
+            count++;
+            if (count % 4 == 0){
+                System.out.println();
+            }
+        }
     }
-
 }
