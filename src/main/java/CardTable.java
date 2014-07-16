@@ -9,6 +9,7 @@ import java.util.Collections;
 
 public class CardTable {
 
+    private int count = 0;
     private ArrayList<Player> players;
     private ArrayList<Integer> cardDeck = new ArrayList<Integer>();
 
@@ -18,7 +19,12 @@ public class CardTable {
 
     // add player into the players array
     public void addPlayer(Player player){
-        players.add(player);
+
+        if (players.size() < 4){
+            players.add(player);
+            players.get(count).run();
+            count++;
+        }
     }
 
     public void shuffer(){

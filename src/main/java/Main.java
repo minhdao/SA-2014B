@@ -1,11 +1,14 @@
+import com.sun.corba.se.spi.activation.Server;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 
 /**
  * Created by minh on 7/16/14.
@@ -13,7 +16,12 @@ import java.net.Socket;
  * Threads and sockets for servers are created here
  */
 public class Main {
+
+    private static ArrayList<Thread> game = new ArrayList<Thread>();
+
     public static void main(String[] args) {
+        Main m = new Main();
+
         ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
 
         final CardTable ct = (CardTable) context.getBean("cardTable");
@@ -21,32 +29,8 @@ public class Main {
 
         try {
             ServerSocket ss = new ServerSocket(18888);
-            while(true){
-                final Socket server = ss.accept();
-
-                new Thread(new Runnable(){
-
-                    @Override
-                    public void run() {
-                        try {
-                            DataInputStream dis = new DataInputStream(server.getInputStream());
-                            DataOutputStream dos = new DataOutputStream(server.getOutputStream());
-
-                            String name = dis.readUTF();
-
-                            if(ct.getPlayerNumber() < 4){
-                                ct.addPlayer(new Player(name));
-                                dos.writeUTF("Hello " + name + ". You are the player number " + ct.getPlayerNumber());
-//                                server.close();
-                            }else{
-                                dos.writeUTF("Sorry " + name);
-                            }
-
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }).start();
+            for (int i = 0; ;i++){
+                ct.addPlayer(new Player("name", ss.accept()));
             }
         } catch (IOException e) {
             e.printStackTrace();
