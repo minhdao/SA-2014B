@@ -9,20 +9,16 @@ import java.util.Collections;
 
 public class CardTable {
 
-    private Player[] players;
+    private ArrayList<Player> players;
     private ArrayList<Integer> cardDeck = new ArrayList<Integer>();
 
     public CardTable(){
-        players = new Player[4];
+        players = new ArrayList<Player>();
     }
 
     // add player into the players array
     public void addPlayer(Player player){
-        for (int i =0; i<players.length; i++){
-            if (players[i]==null){
-                players[i] = player;
-            }
-        }
+        players.add(player);
     }
 
     public void shuffer(){
@@ -38,5 +34,9 @@ public class CardTable {
                 System.out.println();
             }
         }
+    }
+
+    public int getPlayerNumber(){
+        return players.size();
     }
 }
