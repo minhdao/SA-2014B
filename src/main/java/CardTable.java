@@ -25,6 +25,10 @@ public class CardTable {
             players.get(count).run();
             count++;
         }
+
+        if (count == 4){
+            startGame();
+        }
     }
 
     public void shuffer(){
@@ -39,6 +43,12 @@ public class CardTable {
             if (count % 4 == 0){
                 System.out.println();
             }
+        }
+    }
+
+    private void startGame(){
+        while (true){
+            players.get(0).writeToClient();
         }
     }
 

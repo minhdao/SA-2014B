@@ -17,6 +17,8 @@ public class Player implements Runnable{
 
     private String name;
     private Socket socket;
+    DataInputStream dis;
+    DataOutputStream dos;
     private ArrayList<Integer> cardDeck;
     private ArrayList<Integer> playingCards;
     private boolean isPlaying;
@@ -30,11 +32,19 @@ public class Player implements Runnable{
         playingCards = new ArrayList<Integer>();
     }
 
+    public void writeToClient(){
+        try {
+            dos.write(1);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void run() {
         try {
-            DataInputStream dis = new DataInputStream(socket.getInputStream());
-            DataOutputStream dos = new DataOutputStream(socket.getOutputStream());
+            dis = new DataInputStream(socket.getInputStream());
+            dos = new DataOutputStream(socket.getOutputStream());
 
             dos.writeUTF("Connected!");
         } catch (IOException e) {
