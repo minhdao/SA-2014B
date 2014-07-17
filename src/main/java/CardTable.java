@@ -32,9 +32,8 @@ public class CardTable {
     }
 
     public void shuffer(){
-        for (int i = 1; i <= 52; i++){
-            cardDeck.add(i);
-        }
+
+        initCardDeck();
         Collections.shuffle(cardDeck);
         int count = 0;
         for (int i = 0; i < 52; i++){
@@ -42,6 +41,15 @@ public class CardTable {
             count++;
             if (count % 4 == 0){
                 System.out.println();
+            }
+        }
+    }
+
+    public void initCardDeck(){
+        for (int i = 3; i <= 15; i++){
+            int temp = i * 10;
+            for (int j = 0; j < 4; j++){
+                cardDeck.add(temp + j);
             }
         }
     }
